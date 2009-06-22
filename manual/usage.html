@@ -1,0 +1,242 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
+
+  <title>Usage</title>
+</head>
+
+<body>
+  <div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="3" align="center"></th>
+      </tr>
+
+      <tr>
+        <td width="10%" align="left" valign="bottom"><a href=
+        "index.html">&lt;&lt;&lt; Previous</a></td>
+
+        <td width="80%" align="center" valign="bottom"></td>
+
+        <td width="10%" align="right" valign="bottom"><a href=
+        "bugs.html">Next &gt;&gt;&gt;</a></td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <h1><a name="usage" id="usage">Usage</a></h1>
+
+    <p><tt>TEMPO</tt> is able to read <span>EEG</span> recordings in
+    <span>EDF</span> (European Data Format) format. <span>EDF</span> is
+    simple and flexible standard format for exchange and storage of
+    simultaneously recorded physical signals. <span>EDF</span>
+    specification, as well as pointers to converters from other commonly
+    used <span>EEG</span> formats to <span>EDF</span> format, are
+    available at <tt>http://www.hsr.nl/edf/</tt>.</p>
+
+    <p><tt>TEMPO</tt> expects file name to be specified trough file
+    selection dialog, that is in turn activated using first button in row
+    of buttons in bottom right corner of application main window.</p>
+
+    <p><tt>TEMPO</tt> has extensive error checking included. However,
+    error reporting is rather primitive for now: when encountering
+    unrecoverable error, <tt>TEMPO</tt> will print the error code and will
+    terminate then. This information is intended for <tt>TEMPO</tt>
+    developers, so please include it when reporting problem. More user
+    friendly error reporting mechanism will be eventually added later.</p>
+
+    <p>Thus, if for any reason (file does not exist, user does not have
+    appropriate permissions to access file) <tt>TEMPO</tt> is unable to
+    access to specified <span>EDF</span> file, the error code will be
+    printed and program will be terminated. Otherwise, <tt>TEMPO</tt> will
+    proceed to read <span>EDF</span> file header. Some important checks
+    are performed on file header too. First, version of <span>EDF</span>
+    data format is checked and then electrode names for <span>EEG</span>
+    from <span>EDF</span> file are compared to names of electrodes known
+    to <tt>TEMPO</tt>. <span>EDF</span> format is very flexible regarding
+    types and arrangements of recorded signals. However, <tt>TEMPO</tt> is
+    able to recognize only signals from electrodes named according to so
+    called <span>10-10</span> (and, by inclusion, <span>10-20</span>)
+    international standard. <span>EDF</span> file must contain signals
+    from at least six alike electrodes in order to have <tt>TEMPO</tt> to
+    accept file for mapping; otherwise, <tt>TEMPO</tt> will report an
+    error.</p>
+
+    <p>Actually, names (and positions) of electrodes are read from an
+    external file. This file is in an <span>ASCII</span> format and it is
+    possible to support additional electrodes. New electrode names are
+    easy to add, but electrode positions should be precisely specified
+    there, and that could be hard part. Thus, it is recommended to stick
+    with <span>10-10</span> arrangement and to give appropriate names to
+    electrodes in <span>EDF</span> file.</p>
+
+    <p>If everything fine with <span>EDF</span> file header,
+    <tt>TEMPO</tt> will proceed with reading scalp and face models (these
+    models are, like electrodes information, stored in external files in
+    an <span>ASCII</span> format) and will then show application main
+    window. The screen-shot of <tt>TEMPO</tt> main window is given in
+    Figure 1.</p>
+
+    <div>
+      <a name="screenshot" id="screenshot"></a>
+
+      <p><img src="tempo.png"></p>
+
+      <p><strong>Figure 1. <tt>TEMPO</tt> screen-shot</strong></p>
+    </div>
+
+    <p>Left part of <tt>TEMPO</tt> main window is occupied by
+    visualization window, displaying current topographic map. User could
+    left click and drag mouse here, to have head model rotated. Dragging
+    to left and right corresponds approximately to rotating head model
+    around world y-axis (from head center to up) in 3D and dragging to up
+    and down corresponds approximately to rotation head model around world
+    x-axis (from head center to right).</p>
+
+    <p>Right part of <tt>TEMPO</tt> main window is occupied by five groups
+    of graphical user interface controls. Each control has a tool-tip
+    explaining its purpose, and each control will be described in more
+    details here. First four groups are enclosed by corresponding frames
+    and fifth group consists of four buttons in bottom right corner of
+    main window. First frame is intended to display information about
+    recording only. Following informations from <span>EDF</span> file
+    header are displayed here:</p>
+
+    <ul>
+      <li>local patient identification</li>
+
+      <li>local recording identification</li>
+
+      <li>start date and time of recording</li>
+    </ul>
+
+    <p>Second frame contains controls for selection of score to be
+    topographically mapped and for adjusting its parameters. As for now,
+    <tt>TEMPO</tt> supports three scores:</p>
+
+    <ul>
+      <li>raw <span>EEG</span> potential</li>
+
+      <li>amplitude of potential <span>DFT</span> (Discrete Fourier
+      Transform) values</li>
+
+      <li>phase of potential <span>DFT</span> values</li>
+    </ul>
+
+    <p>First control in scores frame is menu for score selection (menu
+    items are also showing score units - microvolts or radians). Other two
+    controls are intended for further specification of <span>DFT</span>
+    related scores and are disabled when raw potential selected in first
+    control. Second control in scores frame is menu for number of raw
+    potential samples used to calculate signal <span>DFT</span> (this
+    number is often called <span>DFT</span> window or simply window).
+    Allowed values are 128, 256 and 512 samples (<span>FFT</span>
+    algorithm is used for <span>DFT</span> calculation, thus number of
+    samples should be power of 2). Samples to calculate <span>DFT</span>
+    are always taken from current point in input file backwards (thus,
+    current time, that is representing current point in input file, could
+    be adjusted when changing current score or <span>DFT</span> window ,
+    if this is necessary to have enough samples before current point in
+    input file for <span>DFT</span> calculation). Third control in scores
+    frame is spin button for selecting current frequency for
+    <span>DFT</span> scores. For each input vector of raw potential
+    samples, <span>DFT</span> calculation produces output vector of same
+    length of complex numbers. Each of these numbers corresponds to single
+    frequency in input signal spectrum and only values for one specific
+    frequency could be mapped at a time. Third control in scores frame is
+    for specifying this frequency. The upper range of this spin button is
+    always set according to Nyquist theorem of signal sampling: it is
+    eventually adjusted when <span>DFT</span> window changes, but is
+    always less or equal than one half of signal sampling frequency.</p>
+
+    <p>Third frame contains controls pertaining to color legend. Lower
+    half of values for given score are mapped to colors between blue and
+    green, upper half of values are mapped to colors between green and
+    red. Frame with legend controls contains also two spin buttons for
+    controlling lowest (mapped to pure blue) and highest (mapped to pure
+    red) score values represented by legend. <tt>TEMPO</tt> is using
+    simple heuristic for calculating lowest and highest score value for
+    raw potential score and highest values for <span>DFT</span> amplitudes
+    (lowest value for each <span>DFT</span> amplitude is always 0 and
+    <span>DFT</span> phase values are always between -pi and pi radians).
+    Namely, each time when new score requested, <tt>TEMPO</tt> is
+    calculating number of score values for each recognized signal from
+    random positions in <span>EEG</span> file, and then using these values
+    estimates lowest and highest score values for legend. Score values
+    that are later found to be lower than lowest values or higher that
+    highest values are clamped and mapped to pure blue and red color
+    respectively. This heuristic give pretty good results in most cases,
+    but depending on <span>EEG</span> file contents it could also miss
+    completely. In these cases, spin buttons could be used to adjust
+    boundaries. Current low boundary could be set anywhere between twice
+    times initial lowest value and current high boundary, and high
+    boundary could be set anywhere between current low boundary and twice
+    times initial highest value. All of above considered, user has lots of
+    freedom in selecting most appropriate resolution regarding mapping
+    score values to color map. Low and high boundaries are remember for
+    each score separately. Thus, when score changes using corresponding
+    menu from score controls frame, boundaries for selected score are
+    restored automatically.</p>
+
+    <p>Fourth frame contains time related controls. First row of these
+    controls is showing <span>EEG</span> file sampling frequency. Next row
+    contains a spin button representing current time in seconds. When
+    animation is ongoing, this button is disabled, but continuously
+    updating, showing time that corresponds to current map, starting from
+    beginning of the file. When animation stopped, user could use this
+    button to jump to arbitrary position in the input file. As mentioned
+    above, <tt>TEMPO</tt> also could adjust this value automatically, if
+    necessary to have appropriate number of samples before current
+    position in order to be able to calculate <span>DFT</span> related
+    scores. Third row of time controls contains spin button for selecting
+    animation step, i.e. for how many samples current position is advanced
+    between generating two successive topographic maps. Like current time
+    control, this control is disabled while animation is ongoing, but
+    while animation stopped it could be used to select coarser time
+    resolution. Three buttons for animation control appear in next row of
+    time controls. First button is for starting animation, second button
+    is for pausing animation and third button is intended to stop (pause
+    and reset current time to smallest possible value) animation. Only one
+    of these three buttons could be active at the same moment.
+    <tt>TEMPO</tt> is also stopping animation automatically when
+    encountering end of the <span>EEG</span> file. Last row of time
+    controls contains slider for adjusting animation speed, i.e. how fast
+    (or slow) the animation will run respective to real time flow.</p>
+
+    <p>Last group of controls on the right side of <tt>TEMPO</tt> main
+    window consists of four push buttons. First button is, as mentioned
+    above, for opening new <span>EDF</span> file. Second button is
+    intended for saving current topographic map in <span>PNG</span>
+    format. Third button is intended to launch help browser and display
+    help pages that you are now looking at. Finally, pressing fourth
+    button quits <tt>TEMPO</tt> application.</p>
+  </div>
+
+  <div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="33%" align="left" valign="top"><a href=
+        "index.html">&lt;&lt;&lt; Previous</a></td>
+
+        <td width="34%" align="center" valign="top"><a href=
+        "index.html">Home</a></td>
+
+        <td width="33%" align="right" valign="top"><a href=
+        "bugs.html">Next &gt;&gt;&gt;</a></td>
+      </tr>
+
+      <tr>
+        <td width="33%" align="left" valign="top"></td>
+
+        <td width="34%" align="center" valign="top"> </td>
+
+        <td width="33%" align="right" valign="top">Bugs</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

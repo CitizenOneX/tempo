@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html>
+<head>
+  <meta name="generator" content=
+  "HTML Tidy for Linux/x86 (vers 11 February 2007), see www.w3.org">
+
+  <title>Hacking</title>
+</head>
+
+<body>
+  <div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <th colspan="3" align="center"></th>
+      </tr>
+
+      <tr>
+        <td width="10%" align="left" valign="bottom"><a href=
+        "bugs.html">&lt;&lt;&lt; Previous</a></td>
+
+        <td width="80%" align="center" valign="bottom"></td>
+
+        <td width="10%" align="right" valign="bottom"><a href=
+        "history.html">Next &gt;&gt;&gt;</a></td>
+      </tr>
+    </table>
+  </div>
+
+  <div>
+    <h1><a name="hacking" id="hacking">Hacking</a></h1>
+
+    <p>This section is intended as short road-map though <tt>TEMPO</tt>
+    source code files. <tt>TEMPO</tt> code is pretty much populated with
+    comments, and, as with any other open source project, source code is
+    ultimate reference. Also, <span>Doxygen</span> format is used for
+    commenting <tt>TEMPO</tt> classes interfaces, so <span>Doxygen</span>
+    tool could be employed along with <tt>tempo.cfg</tt>
+    <span>Doxygen</span> configuration file in <tt>TEMPO</tt> distribution
+    root directory to generate documentation for these interfaces in
+    various formats.</p>
+
+    <p>Source code files are grouped in <tt>src</tt> subdirectory of
+    <tt>TEMPO</tt> distribution. Subdirectory <tt>data</tt> contains files
+    with face and scalp models, as well as file with electrode names and
+    positions and sample <span>EDF</span> file. Subdirectory
+    <tt>manual</tt> contain help files (what you are reading now) in
+    <span>HTML</span> format. Subdirectory <tt>resources</tt> contains
+    artwork (icon files). Subdirectory <tt>tmp</tt> is where compilation
+    artifacts are stored (note however that executable is generated in
+    <tt>TEMPO</tt> distribution root directory. File <tt>tempo.pro</tt> is
+    <span>Qt</span> project file. Other files in <tt>TEMPO</tt>
+    distribution root directory are rather standard files for any open
+    source project.</p>
+
+    <p><tt>TEMPO</tt> is written in <span>C++</span> programming language,
+    using <span>OpenGL</span> library for 3D graphics and <span>Qt</span>
+    toolkit for graphical user interface. Thus, familiarity with these
+    technologies is necessary in order to be able to understand source
+    code.</p>
+
+    <p>When examining <tt>src</tt> subdirectory, one should start with
+    <tt>vector.*</tt>, <tt>color.*</tt>, <tt>bounding_box.*</tt>,
+    <tt>vertex.*</tt>, <tt>material.*</tt> and <tt>triangle.*</tt> files.
+    These files contain definition of simple data structures to be used
+    for constructing geometry model.</p>
+
+    <p>One should proceed with <tt>object.*</tt> files then. These files
+    contain definition of data structure and accompanying operations for
+    geometry model. Two operations related to this data structure are
+    especially important: creating model from given data file and
+    rendering model using <span>OpenGL</span> routines. Input format for
+    object geometry is simple <span>ASCII</span> format; input file
+    contains arrays of vertices, normals, materials and triangles. Each
+    array is preceded by number designating array length. Array elements
+    are groups of numbers corresponding to fields of data structures
+    mentioned above. Subdirectory <tt>data</tt> of <tt>TEMPO</tt>
+    distribution contains files <tt>face.mo</tt> and <tt>scalp.mo</tt>
+    with face and scalp models in above format. <span>OpenGL</span> code
+    rendering object model is (as emphasized in comments) for simplicity
+    left without any optimization (nevertheless, this code works pretty
+    fast even on software-only <span>OpenGL</span> implementations).</p>
+
+    <p>Files <tt>scene.*</tt> contain definition of data structure and
+    accompanying operations for scene object. Scene object contains
+    instances of face and scalp objects. Visualization created by
+    <tt>TEMPO</tt> is pretty generic in the sense that this code could be
+    utilized for any kind of visualization where some parts of scene are
+    color coded from some interpolated values and other parts of scene
+    rendered as is. Thus, instead of &quot;face&quot; and
+    &quot;scalp&quot;, terms &quot;not mapped&quot; and &quot;mapped&quot;
+    are utilized through <tt>TEMPO</tt> code. Also, term
+    &quot;sensor&quot; is utilized later instead of term
+    &quot;electrode&quot;. It would be actually very easy to utilize
+    <tt>TEMPO</tt> rendering code to create visualization of say
+    interpolated statical load across the bridge given measured loads in
+    some points; but that is unrelated story.</p>
+
+    <p>Geometry related parts of <tt>TEMPO</tt> code are completed with
+    <tt>quaternion.*</tt> and <tt>rotation.*</tt> files. These files
+    contain definition of rotation data structures and corresponding
+    operations. Quaternions are used to calculate cumulative scene
+    rotation after user interaction with mouse.</p>
+
+    <p>Files <tt>exception.*</tt> contain definition of exceptions that
+    could be thrown from <tt>TEMPO</tt> for error handling purposes.</p>
+
+    <p>Signal processing related parts of <tt>TEMPO</tt> code begin with
+    <tt>fft.*</tt> files. These files contain implementation of
+    <span>FFT</span> procedure, together with caching of auxiliary data
+    for faster execution.</p>
+
+    <p>Files <tt>sensors.*</tt> contain data structure definition for
+    electrodes (&quot;sensors&quot; in <tt>TEMPO</tt> terminology, as
+    above explained) names and positions. These information are read from
+    file in simple <span>ASCII</span> format: first line of file contains
+    number of electrodes, and then follows lines with electrode
+    information where length of electrode name is given first, then
+    electrode name between quotation marks and finally electrode positions
+    (in same coordinate system as face and scalp models are given).
+    Subdirectory <tt>data</tt> of <tt>TEMPO</tt> distribution contains
+    file <tt>10_10.ms</tt> with corresponding information for electrode
+    arrangement according to <span>10-10</span> and <span>10-20</span>
+    international standards.</p>
+
+    <p>Reading of input <span>EDF</span> file and calculating
+    <span>EEG</span> scores is distributed between <tt>input.*</tt> and
+    <tt>signal.*</tt> files. Former files contain definition of data
+    structure and operations to read <span>EDF</span> file header and to
+    calculate array of <span>EEG</span> score values given needed set of
+    samples on each electrode. Later files contain definition of data
+    structure representing individual <span>EEG</span> channel and
+    operations to read corresponding signal header from <span>EDF</span>
+    file and provide set of signal samples of given length at given
+    position in <span>EDF</span> file (this operation is used by above
+    mentioned function from <tt>input.cpp</tt> file calculating array of
+    <span>EEG</span> score values). Important to note is that function
+    from <tt>input.cpp</tt> file reading <span>EDF</span> header is also
+    looking at signal headers and comparing signal names to names known to
+    above discussed sensors object (an instance of this object is passed
+    to this function). Thus, signal objects are created only for channels
+    from <span>EDF</span> file whose names corresponds to names of
+    electrodes known to <tt>TEMPO</tt>.</p>
+
+    <p>Mapping of score values to colors is encapsulated in interpolation
+    object, defined in <tt>interpolation.*</tt> files. Weight coefficients
+    for each scalp vertex according to vertex distance from set of nearest
+    electrodes are calculated during initialization of this object and
+    used later to actually perform interpolation. Mapping of values to
+    color pallette is also defined here.</p>
+
+    <p>Two simple <span>Qt</span> widgets are defined in
+    <tt>gradient_widget.*</tt> and <tt>visualization_widget.*</tt> files
+    respectively. First widget is drawing color legend and is later
+    instantiated in legend frame of <tt>TEMPO</tt> main window. Second
+    widget is actually showing <span>OpenGL</span> rendering and is later
+    instanced in left half of <tt>TEMPO</tt> main window.</p>
+
+    <p>Set of files <tt>info_widget.*</tt>, <tt>score_widget.*</tt>,
+    <tt>legend_widget.*</tt> and <tt>time_widget.*</tt> contain code for
+    creating graphical user interface and handling appropriate events for
+    corresponding frames on right half of <tt>TEMPO</tt> main window. This
+    code is bulky, but is rather simple actually.</p>
+
+    <p>Files <tt>main_widget.*</tt> contain code for <tt>TEMPO</tt>
+    application main widget, that is uniting highest level components of
+    above together. Files <tt>manual_widget.*</tt> contain implementation
+    of simple browser for <tt>TEMPO</tt> help files.</p>
+
+    <p>Finally, <tt>main.cpp</tt> is file containing program
+    <tt>main()</tt> function</p>
+  </div>
+
+  <div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+      <tr>
+        <td width="33%" align="left" valign="top"><a href=
+        "bugs.html">&lt;&lt;&lt; Previous</a></td>
+
+        <td width="34%" align="center" valign="top"><a href=
+        "index.html">Home</a></td>
+
+        <td width="33%" align="right" valign="top"><a href=
+        "history.html">Next &gt;&gt;&gt;</a></td>
+      </tr>
+
+      <tr>
+        <td width="33%" align="left" valign="top">Bugs</td>
+
+        <td width="34%" align="center" valign="top"> </td>
+
+        <td width="33%" align="right" valign="top">History</td>
+      </tr>
+    </table>
+  </div>
+</body>
+</html>

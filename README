@@ -1,0 +1,56 @@
+WHAT IS IT?
+
+TEMPO (Topographic Eeg Mapping Program) is software for 3D visualization
+of brain electrical activity.  TEMPO is able to read EEG recordings in
+standard EDF format and to create animated sequence of 3D topographic
+maps with EEG activity color-coded over scalp region.  The primary
+strength of TEMPO approach to topographic mapping is ability to examine
+the same map from different viewpoints - user is able to navigate around
+head object using mouse.  Individual topographic maps could be saved in
+PNG format for future examination.  The animation, as well as mapping
+parameters, are controllable through corresponding graphical user
+interface.
+
+
+REQUIREMENTS
+
+TEMPO is an application based on Qt toolkit
+(http://www.trolltech.com/products/qt/); thus in order to be able to run
+TEMPO, Qt runtime libraries must be installed on target machine.
+
+
+BASIC USAGE
+
+The data subdirectory of TEMPO distribution contains 60s long sample EDF
+recording (file sample.edf) of healthy female subject exposed to visual
+alerting sequence; this sample could be opened in TEMPO (trough Open
+button) in order to try software.  The Play button will start animation,
+mouse dragging while right button pressed could be used to rotate head
+model.  For further instructions on using TEMPO, see on-line help
+(accessible through Manual button).
+
+
+BUGS
+
+EDF format is very flexible, that makes it hard for TEMPO to support all
+possible variations of naming electrodes and utilizing other available
+fields from EDF header.  So, if problems appear with some EDF data
+files, please contact TEMPO maintainer.  Please also report other kind
+of bugs to TEMPO maintainer.  See AUTHORS file in TEMPO distribution for
+contact information.
+
+
+LICENSES NOTICE
+
+TEMPO software is licensed under GPL license.  See COPYING file in TEMPO
+distribution for license text.  Please take time to read and understand
+the license, and especially (because of potential EEG analysis uses) no
+warranty clause.
+
+Head model is licensed from web3dservice (http://www.web3dservice.com/).
+Under no circumstances may this model be utilized for any purpose other
+than to run TEMPO software.
+
+TEMPO icons are taken from CrystalSVG icon set
+(http://www.everaldo.com/crystal.html), designed by Everaldo Coelho and
+available under GNU LGPL license.
