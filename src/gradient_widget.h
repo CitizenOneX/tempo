@@ -29,6 +29,7 @@
 #include "interpolation.h"
 #include <QtCore>
 #include <QtGui>
+#include <QWidget>
 
 //! Gradient of colors widget.
 /*!

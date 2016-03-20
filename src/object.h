@@ -33,12 +33,13 @@
 #include "triangle.h"
 #include "vector.h"
 #include "vertex.h"
+#include <QOpenGLFunctions>
 
 //! Geometry object.
 /*!
  * This class represents a geometry object in scene.
  */
-class Object {
+class Object : protected QOpenGLFunctions {
  public:
         /*!
          * Construct an object of Object class given filename with

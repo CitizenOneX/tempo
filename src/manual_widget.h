@@ -28,6 +28,10 @@
 
 #include <QtCore>
 #include <QtGui>
+#include <QTextBrowser>
+#include <QPushButton>
+#include <QHBoxLayout>
+#include <QVBoxLayout>
 
 //! On-line manual widget.
 /*!

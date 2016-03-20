@@ -1,7 +1,8 @@
 CONFIG      += debug qt stl warn_on
 MOC_DIR      = tmp
 OBJECTS_DIR  = tmp
-QT          += opengl
+QT          += widgets opengl
+LIBS        += -lopengl32 -lGLU32
 RCC_DIR      = tmp
 TARGET       = tempo
 TEMPLATE     = app

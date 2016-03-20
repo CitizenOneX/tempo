@@ -29,6 +29,10 @@
 #include "input.h"
 #include <QtCore>
 #include <QtGui>
+#include <QGroupBox>
+#include <QLineEdit>
+#include <QLabel>
+#include <QGridLayout>
 
 //! Recording informations widget.
 /*!

@@ -29,6 +29,16 @@
 #include "input.h"
 #include <QtCore>
 #include <QtGui>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QDoubleSpinBox>
+#include <QSpinBox>
+#include <QSlider>
+#include <QLabel>
+#include <QGroupBox>
+#include <QButtonGroup>
+#include <QGridLayout>
+#include <QHBoxLayout>
 
 //! Time parameters widget.
 /*!

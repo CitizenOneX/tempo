@@ -29,6 +29,11 @@
 #include "input.h"
 #include <QtCore>
 #include <QtGui>
+#include <QComboBox>
+#include <QLabel>
+#include <QSpinBox>
+#include <QGroupBox>
+#include <QGridLayout>
 
 //! Score parameters widget.
 /*!

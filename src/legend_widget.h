@@ -30,6 +30,10 @@
 #include "gradient_widget.h"
 #include <QtCore>
 #include <QtGui>
+#include <QGroupBox>
+#include <QDoubleSpinBox>
+#include <QLabel>
+#include <QHBoxLayout>
 
 //! Mapping legend widget.
 /*!
