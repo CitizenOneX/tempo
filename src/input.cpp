@@ -33,7 +33,8 @@
 #include "fft.h"
 #include "input.h"
 
-const int Input::COUNT_MIN = 6;
+// Emotiv Insight only outputs 5 signals, so change minimum from 6 to 5 electrodes
+const int Input::COUNT_MIN = 5;
 const std::string Input::VERSION = "0       ";
 
 Input::Input(const std::string &name, const Sensors &sensors)
