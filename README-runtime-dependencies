@@ -1,0 +1,17 @@
+Copy some files to the output directory after compilation:
+
+The "manual" directory is required on startup, as is the "resources" directory, which contains the icons.
+The "data" folder contains some standard electrode positioning coordinates (and a sample EDF file.)
+The various runtime libraries could be added via path setting no doubt, but I've copied them in here.
+
+20-Mar-16  11:29 PM    <DIR>          data
+22-Dec-14  03:07 AM           119,822 libgcc_s_dw2-1.dll
+22-Dec-14  03:07 AM         1,026,062 libstdc++-6.dll
+22-Dec-14  03:07 AM            49,152 libwinpthread-1.dll
+20-Mar-16  11:29 PM    <DIR>          manual
+19-Mar-16  12:02 AM         5,356,032 Qt5Core.dll
+03-Mar-16  11:28 PM         5,646,336 Qt5Gui.dll
+03-Mar-16  11:39 PM           337,920 Qt5OpenGL.dll
+03-Mar-16  11:36 PM         6,494,208 Qt5Widgets.dll
+20-Mar-16  11:29 PM    <DIR>          resources
+20-Mar-16  11:25 PM           142,336 tempo.exe
